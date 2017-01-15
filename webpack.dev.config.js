@@ -1,5 +1,7 @@
 var webpack = require("webpack");
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var WebpackOnBuildPlugin = require('on-build-webpack');
+var notifier = require('node-notifier');
 
 module.exports = require('./webpack.config.js');    // inherit from the main config file
 
@@ -24,3 +26,10 @@ module.exports.plugins.push(new webpack.DefinePlugin({
   __API_URL: JSON.stringify('http://localhost:8000')
 }));
 
+module.exports.plugins.push(new WebpackOnBuildPlugin(function(stats) {
+  notifier.notify({
+    title: 'Webpack',
+    message: 'Build is done',
+    icon: __dirname + '/webpack.png'
+  });
+}));
