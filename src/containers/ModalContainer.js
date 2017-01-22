@@ -1,9 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-
 import {SIGN_IN_MODAL, SIGN_UP_MODAL} from '../constants/ModalTypes';
-import SignInModal from "../components/Auth/SignInModal";
-import SignUpModal from "../components/Auth/SignUpModal";
+import SignInModalContainer from "../containers/SignInModalContainer";
+import SignUpModalContainer from "../containers/SignUpModalContainer";
 import {hideModal} from "../actions/ModalActions";
 
 const mapStateToProps = state => ({
@@ -15,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
   close: () => dispatch(hideModal())
 });
 
-const COMPONENTS = {
-  [SIGN_IN_MODAL]: SignInModal,
-  [SIGN_UP_MODAL]: SignUpModal
+const CONTAINERS = {
+  [SIGN_IN_MODAL]: SignInModalContainer,
+  [SIGN_UP_MODAL]: SignUpModalContainer
 };
 
 class ModalContainer extends React.Component {
@@ -26,9 +25,9 @@ class ModalContainer extends React.Component {
       return null;
     }
 
-    const ModalComponent = COMPONENTS[this.props.modalType];
+    const ModalContainer = CONTAINERS[this.props.modalType];
     return (
-      <ModalComponent close={this.props.close}/>
+      <ModalContainer close={this.props.close}/>
     );
   }
 }

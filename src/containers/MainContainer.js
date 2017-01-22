@@ -1,10 +1,20 @@
 import React from "react";
+import {connect} from "react-redux";
+import {appLoaded} from '../actions/CommonActions';
 import MainPage from "../components/Main/MainPage";
 import OrderListContainer from './OrderListContainer';
 import CategoriesListContainer from './CategoriesListContainer';
 
 
-export default class MainContainer extends React.Component {
+const mapDispatchToProps = dispatch => ({
+  appLoaded: () => dispatch(appLoaded())
+});
+
+class MainContainer extends React.Component {
+  componentWillMount() {
+    this.props.appLoaded();
+  }
+
   render() {
     return (
       <div>
@@ -23,3 +33,6 @@ export default class MainContainer extends React.Component {
     );
   }
 }
+
+export default connect(() => ({}), mapDispatchToProps)(MainContainer);
+export { MainContainer as MainContainer };

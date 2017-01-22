@@ -1,18 +1,15 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { browserHistory } from "react-router";
 import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
-import freeze from "redux-freeze";
 import { reducers } from "./reducers/index";
-import { promiseMiddleware } from './api/client';
+import { promiseMiddleware, localStorageMiddleware } from './api/client';
 import createLogger from 'redux-logger';
 
 
 const middlewareChain = (() => {
-  let middlewares = [routerMiddleware(browserHistory), promiseMiddleware];
+  let middlewares = [routerMiddleware(browserHistory), promiseMiddleware, localStorageMiddleware];
 
-  // add the freeze dev middleware
   if (process.env.NODE_ENV !== 'production') {
-    middlewares.push(freeze);
     middlewares.push(createLogger({collapsed: true, duration: true}));
   }
 

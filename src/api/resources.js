@@ -1,8 +1,8 @@
 import { apiClient } from './client';
 
-export const Auth = {
-  register: (email, password) => apiClient.post('/auth/register', {email, password}),
-  login: (email, password) => apiClient.post('/auth/login', {email, password}),
+export const Account = {
+  register: (email, username, password) => apiClient.post('/account/register', {email, username, password}),
+  login: (username, password) => apiClient.post('/account/login', {username, password}),
 };
 
 export const CurrentUser = {
@@ -18,10 +18,11 @@ export const OrderList = {
   fetch: () => apiClient.get('/orders/'),
   fetch_by_category: (category_id) => apiClient.get(`/orders/?${category_id}`),
   fetch_by_tag: (tag_id) => apiClient.get(`/orders/?${tag_id}`),
+  fetch_own: () => apiClient.get('/orders/own')
 };
 
 export const Order = {
-  fetch: (id) => apiClient.get(`/orders/${id}`),
+  fetch: (id) => apiClient.get(`/orders/${id}/`),
   create: (title, description, price) => apiClient.post('/orders', {title, description, price}),
 };
 

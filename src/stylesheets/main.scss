@@ -1,9 +1,3 @@
-body {
-  padding-top: 50px;
-}
-
-
-
 /* main page */
 
 .main-page-header__text {
@@ -60,6 +54,7 @@ body {
 .tags-list__item {
   display: inline-block;
   padding: 0 5px 0 5px;
+  margin-right: 5px;
 }
 
 .tags-list__item {
@@ -105,7 +100,7 @@ body {
   font-weight: bold;
 }
 
-.categories-list__inner-list {
+.categories-list--nested {
   margin: 0.5em 1em;
 }
 
@@ -118,9 +113,10 @@ body {
 }
 
 .order-list-item__description {
+  margin: 0;
   padding: 15px;
   word-wrap: break-word;
-  margin: 0;
+  white-space: pre;
 }
 
 .order-attachments-list__wrap {

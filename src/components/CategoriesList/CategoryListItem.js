@@ -14,14 +14,16 @@ const CategoryListItem = ({category, folded}) => {
         </span>
         <label>{category.title}</label>
       </div>
-      <ul className="list-unstyled categories-list__inner-list{}">
+      <ul className="list-unstyled categories-list--nested">
         {category.subcategories && category.subcategories.map(subcategory => {
           const id = shortid.generate();
 
           return (
             <li key={id}>
               <input className="categories-list__toggle" type="checkbox" id={"categories-list__toggle-" + id}/>
-              <label htmlFor={"categories-list__toggle-" + id} className="categories-list__toggle-label">{subcategory.title}</label>
+              <label htmlFor={"categories-list__toggle-" + id} className="categories-list__toggle-label">
+                {subcategory.title}
+              </label>
             </li>
           );
         })}
