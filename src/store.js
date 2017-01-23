@@ -2,12 +2,17 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { browserHistory } from "react-router";
 import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
 import { reducers } from "./reducers/index";
-import { promiseMiddleware, localStorageMiddleware } from './api/client';
+import { promiseMiddleware, localStorageMiddleware, redirectGuestsMiddleware } from './middlewares';
 import createLogger from 'redux-logger';
 
 
 const middlewareChain = (() => {
-  let middlewares = [routerMiddleware(browserHistory), promiseMiddleware, localStorageMiddleware];
+  let middlewares = [
+    routerMiddleware(browserHistory),
+    promiseMiddleware,
+    localStorageMiddleware,
+    redirectGuestsMiddleware
+  ];
 
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(createLogger({collapsed: true, duration: true}));
