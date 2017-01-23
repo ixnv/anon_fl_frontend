@@ -1,7 +1,9 @@
 import {LOGIN, REGISTER, SET_CURRENT_USER, LOGOUT} from './../constants/ActionTypes';
 
 const initialState = {
-  currentUser: {}
+  currentUser: {
+    loggedIn: false
+  }
 };
 
 export default (state = initialState, action) => {

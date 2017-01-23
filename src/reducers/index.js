@@ -1,6 +1,7 @@
 import {combineReducers} from "redux";
 import { routerReducer } from "react-router-redux";
 import {reducer as toastrReducer} from 'react-redux-toastr'
+import common from './common';
 import orders from './orders';
 import categories from './categories';
 import modals from './modals';
@@ -11,6 +12,7 @@ import users from './users';
 export const reducers = combineReducers({
   routing: routerReducer,
   toastr: toastrReducer,
+  common,
   orders,
   categories,
   auth,

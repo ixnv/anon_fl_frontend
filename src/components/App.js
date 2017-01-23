@@ -2,11 +2,21 @@ import React from "react";
 import ModalContainer from "../containers/ModalContainer";
 import NavbarContainer from "../containers/NavbarContainer";
 import ReduxToastr from 'react-redux-toastr'
+import {appLoaded} from '../actions/CommonActions';
 import 'react-redux-toastr/src/styles/index.scss'
 import "../stylesheets/main.scss";
+import {connect} from "react-redux";
 
 
-export default class App extends React.Component {
+const mapDispatchToProps = dispatch => ({
+  appLoaded: () => dispatch(appLoaded())
+});
+
+class App extends React.Component {
+  componentWillMount() {
+    this.props.appLoaded();
+  }
+
   render() {
     return (
       <div>
@@ -22,3 +32,6 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default connect(() => ({}), mapDispatchToProps)(App);
+export { App as App };

@@ -18,7 +18,8 @@ export const OrderList = {
   fetch: () => apiClient.get('/orders/'),
   fetch_by_category: (category_id) => apiClient.get(`/orders/?${category_id}`),
   fetch_by_tag: (tag_id) => apiClient.get(`/orders/?${tag_id}`),
-  fetch_own: () => apiClient.get('/orders/own')
+  contractor: () => apiClient.get('/orders/contractor/'),
+  customer: () => apiClient.get('/orders/customer/'),
 };
 
 export const Order = {
