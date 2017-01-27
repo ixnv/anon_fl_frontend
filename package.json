@@ -16,7 +16,7 @@
     "url": "https://github.com/catalin-luntraru/redux-minimal"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --history-api-fallback --host localhost --port 8070",
+    "start": "webpack-dev-server --inline --hot --history-api-fallback --host localhost --port 1337",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack -p --config webpack.prod.config.js",
     "test": "mocha --recursive --compilers js:babel-register --require babel-polyfill --require ignore-styles",
@@ -42,6 +42,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "react": "^15.4.1",
+    "react-autosuggest": "^8.0.0",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
