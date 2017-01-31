@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import * as resources from '../api/resources';
-import {categoriesListFetch, categoriesListUnload, categoriesListToggle} from '../actions/CategoriesActions';
+import {OrderCategories} from '../api/resources';
+import {categoriesListFetch, categoriesListUnload, categorySelectToggle, categoryCollapseToggle} from '../actions/CategoriesActions';
 import CategoriesList from '../components/CategoriesList/CategoriesList';
 
 
@@ -14,13 +14,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch(categoriesListFetch(payload)),
   onUnload: () => dispatch(categoriesListUnload()),
-  // onCategoryClick: () => dispatch(categoriesListToggle())
+  onCategorySelectToggle: (isParent, parentId, id) => dispatch(categorySelectToggle(isParent, parentId, id)),
+  onCategoryCollapseToggle: (id) => dispatch(categoryCollapseToggle(id))
 });
 
 
 class CategoriesListContainer extends React.Component {
   componentWillMount() {
-    this.props.onLoad(resources.OrderCategories.fetch());
+    this.props.onLoad(OrderCategories.fetch());
   }
 
   componentWillUnmount() {
@@ -29,7 +30,7 @@ class CategoriesListContainer extends React.Component {
 
   render() {
     return (
-      <CategoriesList categories={this.props.categories}/>
+      <CategoriesList {...this.props}/>
     );
   }
 }

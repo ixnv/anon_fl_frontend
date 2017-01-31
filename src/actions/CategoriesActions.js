@@ -1,20 +1,30 @@
-import * as types from '../constants/ActionTypes';
+import {CATEGORIES_FETCH, CATEGORIES_UNLOAD, CATEGORY_SELECT_TOGGLE, CATEGORY_COLLAPSE_TOGGLE} from "../constants/ActionTypes";
 
 export const categoriesListFetch = (payload) => {
   return {
-    type: types.CATEGORIES_FETCH,
+    type: CATEGORIES_FETCH,
     payload
   };
 };
 
 export const categoriesListUnload = () => {
   return {
-    type: types.CATEGORIES_UNLOAD
+    type: CATEGORIES_UNLOAD
   }
 };
 
-export const categoriesListToggle = () => {
+export const categorySelectToggle = (isParent, parentId, id) => {
   return {
-    type: types.CATEGORIES_TOGGLE
+    type: CATEGORY_SELECT_TOGGLE,
+    isParent,
+    parentId,
+    id
+  }
+};
+
+export const categoryCollapseToggle = (id) => {
+  return {
+    type: CATEGORY_COLLAPSE_TOGGLE,
+    id
   }
 };
