@@ -24,7 +24,7 @@ export const OrderList = {
 
 export const Order = {
   fetch: (id) => apiClient.get(`/orders/${id}/`),
-  create: (title, description, price) => apiClient.post('/orders', {title, description, price}),
+  create: (title, description, price, category, tags) => apiClient.post('/orders/', {title, description, price, category, tags}),
 };
 
 export const OrderCategories = {
@@ -33,6 +33,16 @@ export const OrderCategories = {
       return apiClient.get('/orders/categories/');
     }
 
-    return apiClient.get(`/orders/categories/${id}`)
+    return apiClient.get(`/orders/categories/${id}/`)
   }
+};
+
+export const OrderApplication = {
+  create: (order_id) => apiClient.post(`/orders/${order_id}/applications/`),
+  cancel: (order_id) => apiClient.delete(`/orders/${order_id}/applications/`)
+};
+
+export const Tags = {
+  search: (term) => apiClient.get(`/tags/search?q=${term}`),
+  create: (tag) => apiClient.post('/tags/', {tag})
 };
