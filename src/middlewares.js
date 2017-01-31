@@ -10,7 +10,7 @@ export const promiseMiddleware = store => next => action => {
         store.dispatch({ type: 'ASYNC_END', promise: action.payload });
         store.dispatch(action);
 
-        action.onSuccess && action.onSuccess();
+        action.onSuccess && action.onSuccess(store.getState());
       },
       error => {
         action.payload = error.response;
@@ -18,7 +18,7 @@ export const promiseMiddleware = store => next => action => {
         store.dispatch({ type: 'ASYNC_END', promise: action.payload });
         store.dispatch(action);
 
-        action.onError && action.onError();
+        action.onError && action.onError(store.getState(), error.response.status);
       }
     );
 
@@ -30,24 +30,17 @@ export const promiseMiddleware = store => next => action => {
 
 export const localStorageMiddleware = store => next => action => {
   if (action.type === 'APP_LOADED') {
-    const token = window.localStorage.getItem('token');
-    const username = window.localStorage.getItem('username');
-    const email = window.localStorage.getItem('email');
+    const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
 
-    if (token) {
-      store.dispatch({ type: 'SET_CURRENT_USER', payload: { username, email }})
+    if (currentUser) {
+      store.dispatch({ type: 'SET_CURRENT_USER', payload: {...currentUser}})
     }
   }
 
   if (action.type === 'LOGIN' && !action.error) {
-    // FIXME: little bit too messy, innit?
-    window.localStorage.setItem('token', action.payload.token);
-    window.localStorage.setItem('username', action.payload.username);
-    window.localStorage.setItem('email', action.payload.email);
+    window.localStorage.setItem('currentUser', JSON.stringify({ ...action.payload }));
   } else if (action.type === 'LOGOUT') {
-    window.localStorage.setItem('token', '');
-    window.localStorage.setItem('username', '');
-    window.localStorage.setItem('email', '');
+    window.localStorage.removeItem('currentUser');
   }
 
   next(action);
@@ -57,7 +50,7 @@ export const redirectGuestsMiddleware = store => next => action => {
   const state = store.getState();
 
   if (state.common.appLoaded && !state.users.currentUser.loggedIn && browserHistory.getCurrentLocation().pathname !== '/') {
-    browserHistory.push('/');
+    // browserHistory.push('/');
   }
 
   next(action);
