@@ -86,6 +86,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
+    "webpack-error-notification": "^0.1.6",
     "whatwg-fetch": "^2.0.1",
     "yargs": "^6.6.0"
   }

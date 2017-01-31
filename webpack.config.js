@@ -4,6 +4,7 @@ var app_root = 'src'; // the app root folder: src, src_users, etc
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var webpack = require("webpack");
+var WebpackErrorNotificationPlugin = require('webpack-error-notification');
 var WebpackOnBuildPlugin = require('on-build-webpack');
 var notifier = require('node-notifier');
 
@@ -51,12 +52,6 @@ module.exports = {
     new webpack.DefinePlugin({
       __API_URL: JSON.stringify('http://localhost:8000')
     }),
-    new WebpackOnBuildPlugin(function(stats) {
-      notifier.notify({
-        title: 'Webpack',
-        message: 'Build is done',
-        icon: __dirname + '/webpack.png'
-      });
-    })
+    new WebpackErrorNotificationPlugin()
   ],
 };
