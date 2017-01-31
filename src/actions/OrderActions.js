@@ -1,6 +1,10 @@
-import {ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD,
-        ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD}
-        from '../constants/ActionTypes';
+import {
+  ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD, ORDER_CREATE,
+  ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD,
+  ORDER_TAG_ADD, ORDER_TAG_REMOVE
+} from '../constants/ActionTypes';
+
+import {Order} from '../api/resources';
 
 export const orderListFetch = (payload) => ({
   type: ORDER_LIST_FETCH,
@@ -36,4 +40,19 @@ export const orderCustomerListFetch = (payload) => ({
 
 export const orderCustomerListUnload = () => ({
   type: ORDER_CUSTOMER_LIST_UNLOAD
+});
+
+export const orderCreate = (title, description, price, category_id, tags) => ({
+  type: ORDER_CREATE,
+  payload: Order.create(title, description, price, category_id, tags)
+});
+
+export const addOrderTag = (tag) => ({
+  type: ORDER_TAG_ADD,
+  tag
+});
+
+export const removeOrderTag = (id) => ({
+  type: ORDER_TAG_REMOVE,
+  id
 });

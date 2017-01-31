@@ -14,7 +14,8 @@ export default (state = initialState, action) => {
       const currentUser = action.error ? {}: {
         username: action.payload.username,
         email: action.payload.email,
-        loggedIn: true
+        loggedIn: true,
+        id: action.payload.id
       };
 
       return {

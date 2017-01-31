@@ -1,6 +1,7 @@
-import {ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD,
-        ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD
-        } from './../constants/ActionTypes';
+import {ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD, ORDER_CREATE,
+  ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD,
+  APPLY, APPLICATION_CANCEL} from './../constants/ActionTypes';
+
 
 const initialState = {
   orders: [],
@@ -12,6 +13,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ORDER_CREATE:
+      return {
+        ...state,
+        errors: action.error ? action.payload.data : null,
+        createdOrder: action.error ? {}: action.payload
+      };
     case ORDER_LIST_FETCH:
       return {
         ...state,
@@ -52,6 +59,16 @@ export default (state = initialState, action) => {
         ...state,
         contractor: []
       };
+    case APPLICATION_CANCEL:
+    case APPLY: {
+      const order = Object.assign({}, state.order, {
+        application: action.error ? {}: action.payload
+      });
+      return {
+        ...state,
+        order
+      };
+    }
     case 'ASYNC_START':
       return {
         ...state,

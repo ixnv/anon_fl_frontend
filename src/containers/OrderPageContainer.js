@@ -1,17 +1,81 @@
 import React from "react";
 import {connect} from "react-redux";
+import {toastr} from 'react-redux-toastr';
 import * as resources from '../api/resources';
+import {SIGN_IN_MODAL} from '../constants/ModalTypes';
+import {showModal} from "../actions/ModalActions";
 import {orderGet, orderUnload} from '../actions/OrderActions';
+import {applyForOrder, applyForOrderSuccess, cancelApplication} from "../actions/ApplicationActions";
 import Order from '../components/Order';
+import ApplyPanel from '../components/ApplyPanel';
+import ApplicationsList from '../components/ApplicationsList';
 
 
 const mapStateToProps = state => ({
-  order: state.orders.order
+  order: state.orders.order,
+  currentUser: state.users.currentUser,
+  application: state.orders.order.application
 });
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch(orderGet(payload)),
-  onUnload: () => dispatch(orderUnload())
+  onUnload: () => dispatch(orderUnload()),
+
+  // applicant actions
+  onApply: (order_id, user) => {
+    if (!user.loggedIn) {
+      dispatch(showModal(SIGN_IN_MODAL));
+      return;
+    }
+    const action = applyForOrder(resources.OrderApplication.create(order_id, user.id));
+    action.onSuccess = () => {
+      toastr.success('Заявка', 'Заявка успешно подана');
+      dispatch(applyForOrderSuccess(order_id));
+    };
+
+    action.onError = (state, status) => {
+      let message = 'Возникла ошибка';
+      switch (status) {
+        case 400:
+          message = 'У заказа уже есть исполнитель';
+          break;
+        case 404:
+          message = 'Заказ не найден или перенесен в архив';
+          break;
+      }
+      toastr.error('Заявка не принята', message);
+    };
+
+    dispatch(action);
+  },
+  onCancelApplication: (order_id) => {
+    if (!confirm('Уверены?')) {
+      return;
+    }
+
+    const action = cancelApplication(resources.OrderApplication.cancel(order_id));
+    action.onSuccess = () => {
+      toastr.success('Заявка', 'Заявка отменена');
+    };
+
+    dispatch(action);
+  },
+
+  // customer actions
+  onApplicationDecline: (application_id) => {
+    if (!confirm('Вы уверены?')) {
+      return;
+    }
+
+    dispatch(acceptApplication(application_id));
+  },
+  onApplicationAccept: (application_id) => {
+    if (!confirm('Вы уверены?')) {
+      return;
+    }
+
+    dispatch(declineApplication(application_id));
+  }
 });
 
 
@@ -30,7 +94,10 @@ class OrderPageContainer extends React.Component {
       <section className="container">
         <div className="row">
           <div className="col-md-9 panel-body">
-            <Order order={this.props.order}/>
+            <Order {...this.props}>
+              <ApplyPanel {...this.props}/>
+              <ApplicationsList {...this.props}/>
+            </Order>
           </div>
         </div>
       </section>

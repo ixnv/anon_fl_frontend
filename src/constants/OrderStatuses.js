@@ -1,0 +1,5 @@
+export const ORDER_STATUS_NEW = 0;
+export const ORDER_STATUS_PUBLISHED = 1;
+export const ORDER_STATUS_IN_PROCESS = 2;
+export const ORDER_STATUS_COMPLETED_WITH_SUCCESS = 3;
+export const ORDER_STATUS_COMPLETED_WITH_FAIL = 4;

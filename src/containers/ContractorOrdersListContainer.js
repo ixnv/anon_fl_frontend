@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {orderContractorListFetch, orderContractorListUnload} from '../actions/OrderActions';
+import {orderContractorListUnload} from '../actions/OrderActions';
 import OrderList from '../components/OrderList/OrderList';
 import {Link}from 'react-router';
 

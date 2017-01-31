@@ -8,6 +8,7 @@ import modals from './modals';
 import auth from './auth';
 import forms from './forms';
 import users from './users';
+import tags from './tags';
 
 export const reducers = combineReducers({
   routing: routerReducer,
@@ -18,5 +19,6 @@ export const reducers = combineReducers({
   auth,
   forms,
   modals,
-  users
+  users,
+  tags
 });

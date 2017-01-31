@@ -6,7 +6,8 @@ import {Link} from 'react-router';
 
 
 const mapStateToProps = state => ({
-  orders: state.orders.customer
+  orders: state.orders.customer,
+  inProgress: state.orders.inProgress
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -25,7 +26,7 @@ class ContractorOrdersListContainer extends React.Component {
       return (
         <div>
           <h3>Вы не создали ни одного заказа</h3>
-          <Link to="/">Создать заказ</Link>
+          <Link to="/orders/create">Создать заказ</Link>
         </div>
       );
     }
