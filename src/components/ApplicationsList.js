@@ -2,13 +2,14 @@ import React from 'react';
 import shortid from 'shortid';
 import {Table, Button} from 'react-bootstrap';
 import {DateUtil} from "../util";
-import {ORDER_APPLICATION_STATUS_NEW, ORDER_APPLICATION_STATUS_DECLINED} from "../constants/OrderApplicationStatus";
+import {ORDER_APPLICATION_STATUS_NEW, ORDER_APPLICATION_STATUS_DECLINED, ORDER_APPLICATION_STATUS_ACCEPTED} from "../constants/OrderApplicationStatus";
+import {ORDER_STATUS_NEW} from "../constants/OrderStatuses";
 
 
-const ApplicationsList = ({currentUser, order, onApplicationAccept, onApplicationDecline}) => {
+const ApplicationsList = ({currentUser, order, onAcceptApplication, onDeclineApplication}) => {
   const {application_list} = order;
 
-  if (!application_list || !application_list.length || order.customer_id !== currentUser.id) {
+  if (!application_list || !application_list.length || order.customer_id !== currentUser.id || order.status !== ORDER_STATUS_NEW) {
     return null;
   }
 
@@ -17,14 +18,20 @@ const ApplicationsList = ({currentUser, order, onApplicationAccept, onApplicatio
       case ORDER_APPLICATION_STATUS_NEW:
         return (
           <div>
-            <Button bsStyle="primary" onClick={() => onApplicationAccept(application.id)}>Нанять</Button>
-            <Button bsStyle="danger" onClick={() => onApplicationDecline(application.id)}>Отказать</Button>
+            <Button bsStyle="primary" onClick={() => onAcceptApplication(order.id, application.id)}>Нанять</Button>
+            <Button bsStyle="danger" onClick={() => onDeclineApplication(order.id, application.id)}>Отказать</Button>
           </div>
         );
       case ORDER_APPLICATION_STATUS_DECLINED:
         return (
           <div>
             Заявителю было отказано
+          </div>
+        );
+      case ORDER_APPLICATION_STATUS_ACCEPTED:
+        return (
+          <div>
+            Заявитель был принят
           </div>
         );
     }

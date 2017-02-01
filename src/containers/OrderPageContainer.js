@@ -5,7 +5,7 @@ import * as resources from '../api/resources';
 import {SIGN_IN_MODAL} from '../constants/ModalTypes';
 import {showModal} from "../actions/ModalActions";
 import {orderGet, orderUnload} from '../actions/OrderActions';
-import {applyForOrder, applyForOrderSuccess, cancelApplication} from "../actions/ApplicationActions";
+import {applyForOrder, applyForOrderSuccess, cancelApplication, declineApplication, acceptApplication} from "../actions/ApplicationActions";
 import Order from '../components/Order';
 import ApplyPanel from '../components/ApplyPanel';
 import ApplicationsList from '../components/ApplicationsList';
@@ -62,19 +62,19 @@ const mapDispatchToProps = dispatch => ({
   },
 
   // customer actions
-  onApplicationDecline: (application_id) => {
+  onDeclineApplication: (order_id, application_id) => {
     if (!confirm('Вы уверены?')) {
       return;
     }
 
-    dispatch(acceptApplication(application_id));
+    dispatch(declineApplication(resources.OrderApplication.decline(order_id, application_id)));
   },
-  onApplicationAccept: (application_id) => {
+  onAcceptApplication: (order_id, application_id) => {
     if (!confirm('Вы уверены?')) {
       return;
     }
 
-    dispatch(declineApplication(application_id));
+    dispatch(acceptApplication(resources.OrderApplication.accept(order_id, application_id)));
   }
 });
 

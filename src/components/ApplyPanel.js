@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Alert} from 'react-bootstrap';
-import {ORDER_STATUS_NEW} from '../constants/OrderStatuses';
+import {ORDER_STATUS_NEW, ORDER_STATUS_IN_PROCESS, ORDER_STATUS_COMPLETED_WITH_SUCCESS} from '../constants/OrderStatuses';
 import {ORDER_APPLICATION_STATUS_WITHDRAWN} from "../constants/OrderApplicationStatus";
 
 
@@ -17,11 +17,26 @@ const ApplyPanel = ({currentUser, order, application, onApply, onCancelApplicati
   }
 
   if (is_owner) {
-    return (
-      <Alert bsStyle="success">
-        <p>Заказ ожидает исполнителя</p>
-      </Alert>
-    );
+    switch (order.status) {
+      case ORDER_STATUS_NEW:
+        return (
+          <Alert bsStyle="success">
+            <p>Заказ ожидает исполнителя</p>
+          </Alert>
+        );
+      case ORDER_STATUS_IN_PROCESS:
+        return (
+          <Alert bsStyle="success">
+            <p>Заказ выполняется</p>
+          </Alert>
+        );
+      case ORDER_STATUS_COMPLETED_WITH_SUCCESS:
+        return (
+          <Alert bsStyle="success">
+            <p>Заказ успешно завершен</p>
+          </Alert>
+        );
+    }
   }
 
   if (is_applicant) {
@@ -29,6 +44,14 @@ const ApplyPanel = ({currentUser, order, application, onApply, onCancelApplicati
       <Alert bsStyle="success">
         <p>Вы подали заявку на исполнение</p>
         <Button bsStyle="danger" onClick={() => onCancelApplication(order.id)}>Отменить заявку</Button>
+      </Alert>
+    );
+  }
+
+  if (!is_owner && order.contractor_id === currentUser.id) {
+    return (
+      <Alert bsStyle="success">
+        <p>Вы выполняете данный заказ</p>
       </Alert>
     );
   }

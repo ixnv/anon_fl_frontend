@@ -1,6 +1,6 @@
 import {ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD, ORDER_CREATE,
   ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD,
-  APPLY, APPLICATION_CANCEL} from './../constants/ActionTypes';
+  APPLY, APPLICATION_CANCEL, APPLICATION_ACCEPT, APPLICATION_DECLINE} from './../constants/ActionTypes';
 
 
 const initialState = {
@@ -59,6 +59,22 @@ export default (state = initialState, action) => {
         ...state,
         contractor: []
       };
+    case APPLICATION_DECLINE:
+    case APPLICATION_ACCEPT: {
+      const order = Object.assign({}, state.order, {});
+
+      for (let i = 0; i < order.application_list.length; i++) {
+        if (action.payload.id === order.application_list[i].id) {
+          order.application_list[i] = action.payload;
+          break;
+        }
+      }
+
+      return {
+        ...state,
+        order
+      }
+    }
     case APPLICATION_CANCEL:
     case APPLY: {
       const order = Object.assign({}, state.order, {
