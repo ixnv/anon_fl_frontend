@@ -1,14 +1,23 @@
 import {ORDER_LIST_FETCH, ORDER_LIST_UNLOAD, ORDER_GET, ORDER_UNLOAD, ORDER_CREATE,
   ORDER_CONTRACTOR_LIST_FETCH, ORDER_CONTRACTOR_LIST_UNLOAD, ORDER_CUSTOMER_LIST_FETCH, ORDER_CUSTOMER_LIST_UNLOAD,
-  APPLY, APPLICATION_CANCEL, APPLICATION_ACCEPT, APPLICATION_DECLINE} from './../constants/ActionTypes';
+  APPLY, APPLICATION_CANCEL, APPLICATION_ACCEPT, APPLICATION_DECLINE, ORDER_FILTER_UPDATE
+} from './../constants/ActionTypes';
+import {ORDER_FILTER_PROCESSED, ORDER_FILTER_RESET} from "../constants/ActionTypes";
 
 
 const initialState = {
   orders: [],
+  ordersOnServerCount: 0,
   order: {},
   contractor: [],
   customer: [],
-  inProgress: false
+  inProgress: false,
+  filter: {
+    categories: [],
+    tag: '',
+    pending: false,
+    empty: true
+  }
 };
 
 export default (state = initialState, action) => {
@@ -22,12 +31,14 @@ export default (state = initialState, action) => {
     case ORDER_LIST_FETCH:
       return {
         ...state,
-        orders: action.payload.results
+        orders: action.payload.results,
+        ordersOnServerCount: action.payload.count
       };
     case ORDER_LIST_UNLOAD:
       return {
         ...state,
-        orders: []
+        orders: [],
+        ordersOnServerCount: 0
       };
     case ORDER_GET:
       return {
@@ -42,22 +53,26 @@ export default (state = initialState, action) => {
     case ORDER_CONTRACTOR_LIST_FETCH:
       return {
         ...state,
-        contractor: action.payload.results
+        contractor: action.payload.results,
+        ordersOnServerCount: action.payload.count
       };
     case ORDER_CUSTOMER_LIST_FETCH:
       return {
         ...state,
-        customer: action.payload.results
+        customer: action.payload.results,
+        ordersOnServerCount: action.payload.count
       };
     case ORDER_CONTRACTOR_LIST_UNLOAD:
       return {
         ...state,
-        contractor: []
+        contractor: [],
+        ordersOnServerCount: 0
       };
     case ORDER_CUSTOMER_LIST_UNLOAD:
       return {
         ...state,
-        contractor: []
+        contractor: [],
+        ordersOnServerCount: 0
       };
     case APPLICATION_DECLINE:
     case APPLICATION_ACCEPT: {
@@ -84,6 +99,36 @@ export default (state = initialState, action) => {
         ...state,
         order
       };
+    }
+    case ORDER_FILTER_UPDATE: {
+      const filter = Object.assign({}, state.filter, {
+        categories: action.filterType === 'category' ? action.param: state.filter.categories,
+        tag: action.filterType === 'tag' ? action.param: state.filter.tag,
+        pending: true
+      });
+
+      filter.empty = !(filter.categories.length || filter.tag);
+
+      return {
+        ...state,
+        filter
+      }
+    }
+    case ORDER_FILTER_RESET: {
+      return {
+        ...state,
+        filter: initialState.filter
+      }
+    }
+    case ORDER_FILTER_PROCESSED: {
+      const filter = Object.assign({}, state.filter, {
+        pending: false
+      });
+
+      return {
+        ...state,
+        filter
+      }
     }
     case 'ASYNC_START':
       return {

@@ -1,10 +1,10 @@
 import {APP_LOADED} from './../constants/ActionTypes';
 
-const initalState = {
+const initialState = {
   appLoaded: false
 };
 
-export default (state = initalState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case APP_LOADED:
       return {
@@ -13,5 +13,7 @@ export default (state = initalState, action) => {
       };
   }
 
-  return state;
+  return {
+    ...state
+  };
 };

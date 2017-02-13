@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+
 import {OrderCategories} from '../api/resources';
 import {categoriesListFetch, categoriesListUnload, categorySelectToggle, categoryCollapseToggle} from '../actions/CategoriesActions';
 import CategoriesList from '../components/CategoriesList/CategoriesList';
@@ -7,7 +8,7 @@ import CategoriesList from '../components/CategoriesList/CategoriesList';
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories.categories
+    ...state.categories
   }
 };
 

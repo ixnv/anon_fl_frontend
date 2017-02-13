@@ -9,6 +9,7 @@ import {applyForOrder, applyForOrderSuccess, cancelApplication, declineApplicati
 import Order from '../components/Order';
 import ApplyPanel from '../components/ApplyPanel';
 import ApplicationsList from '../components/ApplicationsList';
+import OrderChatContainer from '../containers/OrderChatContainer';
 
 
 const mapStateToProps = state => ({
@@ -74,7 +75,12 @@ const mapDispatchToProps = dispatch => ({
       return;
     }
 
-    dispatch(acceptApplication(resources.OrderApplication.accept(order_id, application_id)));
+    const action = acceptApplication(resources.OrderApplication.accept(order_id, application_id));
+    action.onSuccess = () => {
+      dispatch(orderGet(resources.Order.fetch(order_id)));
+    };
+
+    dispatch(action);
   }
 });
 
@@ -97,6 +103,7 @@ class OrderPageContainer extends React.Component {
             <Order {...this.props}>
               <ApplyPanel {...this.props}/>
               <ApplicationsList {...this.props}/>
+              <OrderChatContainer/>
             </Order>
           </div>
         </div>

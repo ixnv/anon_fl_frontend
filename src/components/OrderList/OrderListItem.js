@@ -5,7 +5,7 @@ import TagsList from '../TagsList';
 import {DateUtil} from '../../util';
 
 
-const OrderListItem = ({order}) => {
+const OrderListItem = ({order, onTagClick}) => {
   return (
     <li className="list-group-item">
       <div className="order-list-item">
@@ -23,7 +23,7 @@ const OrderListItem = ({order}) => {
               {DateUtil.formatDate(order.created_at)}
             </span>
           </div>
-          <TagsList tags={order.tags}/>
+          <TagsList tags={order.tags} onTagClick={onTagClick}/>
         </div>
         <aside className="order-list-item__price">{order.price / 100} руб.</aside>
       </div>

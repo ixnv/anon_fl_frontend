@@ -13,7 +13,12 @@ export const LoggedInView = props => {
         </LinkContainer>
       </Nav>
       <Nav pullRight>
-        <LinkContainer to="orders/my">
+        <LinkContainer to="/orders/create">
+          <NavItem>
+            Создать заказ
+          </NavItem>
+        </LinkContainer>
+        <LinkContainer to="/orders/my">
           <NavItem>
             Мои заказы
           </NavItem>

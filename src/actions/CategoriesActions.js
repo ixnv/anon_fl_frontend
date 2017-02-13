@@ -1,4 +1,4 @@
-import {CATEGORIES_FETCH, CATEGORIES_UNLOAD, CATEGORY_SELECT_TOGGLE, CATEGORY_COLLAPSE_TOGGLE} from "../constants/ActionTypes";
+import {CATEGORIES_FETCH, CATEGORIES_UNLOAD, CATEGORY_SELECT_TOGGLE, CATEGORY_COLLAPSE_TOGGLE, CATEGORIES_PRESELECT, CATEGORIES_SELECTED_RESET} from "../constants/ActionTypes";
 
 export const categoriesListFetch = (payload) => {
   return {
@@ -28,3 +28,12 @@ export const categoryCollapseToggle = (id) => {
     id
   }
 };
+
+export const preselectCategories = (categories_ids) => ({
+  type: CATEGORIES_PRESELECT,
+  categories_ids
+});
+
+export const resetSelectedCategories = () => ({
+  type: CATEGORIES_SELECTED_RESET
+});

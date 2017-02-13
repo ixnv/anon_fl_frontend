@@ -10,6 +10,9 @@ const initialState = {
       category: 0,
       tags: [],
       tagInputValue: ''
+    },
+    send_message: {
+      message: ''
     }
   }
 };
@@ -32,8 +35,9 @@ export default (state = initialState, action) => {
       };
     }
     case CLEAR_FORM: {
-      let forms = state.forms;
-      delete forms[action.formName];
+      const forms = Object.assign({}, state.forms, {
+        [action.formName]: initialState.forms[action.formName]
+      });
 
       return {
         ...state,

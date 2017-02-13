@@ -26,6 +26,10 @@ module.exports.plugins.push(new webpack.DefinePlugin({
   __API_URL: JSON.stringify('http://localhost:8000')
 }));
 
+module.exports.plugins.push(new webpack.DefinePlugin({
+  __WS_URL: JSON.stringify('ws://localhost:8882')
+}));
+
 module.exports.plugins.push(new WebpackOnBuildPlugin(function(stats) {
   notifier.notify({
     title: 'Webpack',

@@ -78,7 +78,7 @@ const CreateOrderForm = (props) => {
           onChange={(ev) => updateField('category', ev.target.value)}>
           <option selected/>
           {
-            categories.map(category => {
+            categories && categories.map(category => {
               return (
                 <optgroup key={shortid.generate()} label={category.title}>
                   {category.subcategories.map(subcategory => {
@@ -108,7 +108,7 @@ const CreateOrderForm = (props) => {
         </div>
       </FormGroup>
       <ul className="tags-list">
-        {tags.map(tag => {
+        {tags && tags.map(tag => {
           return (
             <li key={shortid.generate()} className="tags-list__item">
               <span>{tag.tag}</span>

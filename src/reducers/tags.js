@@ -1,10 +1,11 @@
-import {TAG_CREATE, TAGS_SUGGESTIONS_CLEAR, TAGS_SUGGESTIONS_FETCH, TAG_SUGGESTION_SELECTED} from "../constants/ActionTypes";
+import {TAG_CREATE, TAGS_SUGGESTIONS_CLEAR, TAGS_SUGGESTIONS_FETCH, TAG_SUGGESTION_SELECTED, TAG_SELECT} from "../constants/ActionTypes";
 
 const initialState = {
   createdTag: {},
   suggestedTag: {},
   suggestions: [],
-  tagCreationInProgress: false
+  tagCreationInProgress: false,
+  selectedTag: 0
 };
 
 export default (state = initialState, action) => {
@@ -53,6 +54,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         suggestedTag: action.tag
+      };
+    }
+    case TAG_SELECT: {
+      return {
+        ...state,
+        selectedTag: action.tag
       };
     }
     default:

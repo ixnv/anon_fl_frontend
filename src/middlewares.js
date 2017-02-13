@@ -28,6 +28,7 @@ export const promiseMiddleware = store => next => action => {
   next(action);
 };
 
+// FIXME: move this to reducers
 export const localStorageMiddleware = store => next => action => {
   if (action.type === 'APP_LOADED') {
     const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
@@ -41,16 +42,6 @@ export const localStorageMiddleware = store => next => action => {
     window.localStorage.setItem('currentUser', JSON.stringify({ ...action.payload }));
   } else if (action.type === 'LOGOUT') {
     window.localStorage.removeItem('currentUser');
-  }
-
-  next(action);
-};
-
-export const redirectGuestsMiddleware = store => next => action => {
-  const state = store.getState();
-
-  if (state.common.appLoaded && !state.users.currentUser.loggedIn && browserHistory.getCurrentLocation().pathname !== '/') {
-    // browserHistory.push('/');
   }
 
   next(action);

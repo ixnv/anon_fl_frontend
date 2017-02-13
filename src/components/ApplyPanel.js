@@ -27,7 +27,7 @@ const ApplyPanel = ({currentUser, order, application, onApply, onCancelApplicati
       case ORDER_STATUS_IN_PROCESS:
         return (
           <Alert bsStyle="success">
-            <p>Заказ выполняется</p>
+            <p>Заказ выполняется пользователем {order.contractor.username}</p>
           </Alert>
         );
       case ORDER_STATUS_COMPLETED_WITH_SUCCESS:
@@ -39,19 +39,19 @@ const ApplyPanel = ({currentUser, order, application, onApply, onCancelApplicati
     }
   }
 
+  if (!is_owner && order.contractor.id === currentUser.id) {
+    return (
+      <Alert bsStyle="success">
+        <p>Вы выполняете данный заказ</p>
+      </Alert>
+    );
+  }
+
   if (is_applicant) {
     return (
       <Alert bsStyle="success">
         <p>Вы подали заявку на исполнение</p>
         <Button bsStyle="danger" onClick={() => onCancelApplication(order.id)}>Отменить заявку</Button>
-      </Alert>
-    );
-  }
-
-  if (!is_owner && order.contractor_id === currentUser.id) {
-    return (
-      <Alert bsStyle="success">
-        <p>Вы выполняете данный заказ</p>
       </Alert>
     );
   }

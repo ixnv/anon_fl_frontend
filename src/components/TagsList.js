@@ -1,8 +1,9 @@
 import React from 'react';
 import shortid from 'shortid';
+import {Button} from 'react-bootstrap';
 
 
-const TagsList = ({tags}) => {
+const TagsList = ({tags, onTagClick}) => {
   if (!tags) {
     return null;
   }
@@ -12,7 +13,7 @@ const TagsList = ({tags}) => {
       {
         tags.map(tag => (
           <li key={shortid.generate()} className="tags-list__item">
-            <a href={tag.id}>{tag.tag}</a>
+            <Button onClick={() => onTagClick(tag.id)} bsStyle="link">{tag.tag}</Button>
           </li>
         ))
       }

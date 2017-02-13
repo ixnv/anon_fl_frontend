@@ -17,8 +17,9 @@ export const User = {
 
 export const OrderList = {
   fetch: () => apiClient.get('/orders/'),
-  fetch_by_category: (category_id) => apiClient.get(`/orders/?${category_id}/`),
-  fetch_by_tag: (tag_id) => apiClient.get(`/orders/?${tag_id}/`),
+  fetch_by_filter: (query) => apiClient.get(`/orders/?${query}`),
+  fetch_by_category: (category_id) => apiClient.get(`/orders/?category=${category_id}`),
+  fetch_by_tag: (tag_id) => apiClient.get(`/orders/?tag=${tag_id}`),
   contractor: () => apiClient.get('/orders/contractor/'),
   customer: () => apiClient.get('/orders/customer/'),
 };
@@ -45,6 +46,11 @@ export const OrderApplication = {
   decline: (order_id, application_id) => apiClient.put(`/orders/${order_id}/applications/${application_id}/status/`, {
     status: ORDER_APPLICATION_STATUS_DECLINED
   })
+};
+
+export const OrderChat = {
+  fetch: (order_id, page=0) => apiClient.get(`/orders/${order_id}/chat/messages/`),
+  sendMessage: (order_id, message) => apiClient.post(`/orders/${order_id}/chat/messages/`, {message})
 };
 
 export const Tags = {

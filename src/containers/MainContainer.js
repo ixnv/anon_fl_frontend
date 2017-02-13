@@ -13,10 +13,10 @@ export default class MainContainer extends React.Component {
         <section className="container">
           <div className="row">
             <div className="col-md-9 col-sm-12">
-              <OrderListContainer/>
+              <OrderListContainer {...this.props}/>
             </div>
             <div className="col-md-3">
-              <CategoriesListContainer/>
+              <CategoriesListContainer {...this.props}/>
             </div>
           </div>
         </section>

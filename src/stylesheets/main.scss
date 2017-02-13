@@ -173,3 +173,51 @@
     background: #b0b0b0;
   }
 }
+
+/* Order chat */
+
+.order-chat {
+  &__messages {
+    max-height: 400px;
+    min-height: 400px;
+    overflow: auto;
+
+    &--list {
+      margin: 10px;
+    }
+  }
+
+  &__empty-alert {
+    padding: 190px;
+    text-align: center;
+  }
+
+  &__message-field {
+    border: 1px solid #788d94;
+    outline: none;
+    padding: 0.5em;
+    width: 720px;
+    display: inline-block;
+  }
+
+  &__message-time {
+    color: #5b5b5b;
+  }
+
+  &__message {
+    padding: 5px;
+
+    &--new {
+      background-color: #7ee7ff;
+    }
+
+    &-text {
+      white-space: pre-wrap;
+    }
+
+    &-time {
+      color: #b3b3b3;
+      font-size: 0.9em;
+    }
+  }
+}
