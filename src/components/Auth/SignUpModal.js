@@ -28,7 +28,7 @@ const SignUpModal = (props) => {
   };
 
   return (
-    <Modal.Dialog>
+    <Modal show={true}>
       <Modal.Header>
         <Modal.Title>Регистрация</Modal.Title>
       </Modal.Header>
@@ -79,7 +79,7 @@ const SignUpModal = (props) => {
           </FormGroup>
         </form>
       </Modal.Body>
-    </Modal.Dialog>
+    </Modal>
   );
 };
 
