@@ -1,18 +1,17 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { browserHistory } from "react-router";
-import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from "react-router-redux";
 import { reducers } from "./reducers/index";
-import { promiseMiddleware, localStorageMiddleware } from './middlewares';
+import { promiseMiddleware, localStorageMiddleware, webSocketMiddleware } from './middlewares';
 import createLogger from 'redux-logger';
 
 
 const middlewareChain = (() => {
   let middlewares = [
     routerMiddleware(browserHistory),
-    thunk,
     promiseMiddleware,
-    localStorageMiddleware
+    localStorageMiddleware,
+    webSocketMiddleware
   ];
 
   if (process.env.NODE_ENV !== 'production') {

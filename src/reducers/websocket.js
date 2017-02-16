@@ -1,5 +1,5 @@
 import {WEBSOCKET_CONNECT, WEBSOCKET_DISCONNECT} from './../constants/ActionTypes';
-import {WEBSOCKET_ATTACH_LISTENER} from "../constants/ActionTypes";
+import {WEBSOCKET_ATTACH_LISTENER, WEBSOCKET_EMIT_EVENT} from "../constants/ActionTypes";
 
 const initialState = {
   socket: {}
@@ -16,12 +16,11 @@ export default (state = initialState, action) => {
       return {
         ...initialState
       };
-    case WEBSOCKET_ATTACH_LISTENER: {
-      state.socket.on(action.eventKey, action.listener);
-
+    case WEBSOCKET_EMIT_EVENT: {
+      state.socket.emit(action.eventKey, action.data);
       return {
         ...state
-      }
+      };
     }
   }
 
