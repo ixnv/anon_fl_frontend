@@ -12,7 +12,7 @@ const SignInModal = (props) => {
   const updatePasswordField = ev => props.updatePasswordField(ev.target.value);
 
   return (
-    <Modal show={true}>
+    <Modal show={true} onHide={props.close}>
       <Modal.Header>
         <Modal.Title>Войти</Modal.Title>
       </Modal.Header>

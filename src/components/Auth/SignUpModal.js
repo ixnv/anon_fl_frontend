@@ -28,7 +28,7 @@ const SignUpModal = (props) => {
   };
 
   return (
-    <Modal show={true}>
+    <Modal show={true} onHide={props.close}>
       <Modal.Header>
         <Modal.Title>Регистрация</Modal.Title>
       </Modal.Header>
