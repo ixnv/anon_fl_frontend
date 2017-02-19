@@ -6,6 +6,10 @@ import {ORDER_CHAT_NEW_MESSAGE, NEW_UNREAD_NOTIFICATIONS, ORDER_APPLICATION_DECL
 } from "./constants/WebSocketsEvents";
 import {orderChatNewMessageReceived} from "./actions/OrderChatActions";
 import {newUnreadNotifications} from "./actions/NotificationsActions";
+import {
+  orderApplicationApprovedReceived, orderApplicationDeclinedReceived,
+  orderApplicationRequestReceived
+} from "./actions/ApplicationActions";
 
 export const promiseMiddleware = store => next => action => {
   if (!(action.payload && typeof action.payload.then === 'function')) {
@@ -53,7 +57,7 @@ export const localStorageMiddleware = store => next => action => {
 };
 
 export const webSocketMiddleware = store => next => action => {
-  if (action.type === SET_CURRENT_USER || action.type === LOGIN) {
+  if (!action.error && (action.type === SET_CURRENT_USER || action.type === LOGIN)) {
     const webSocketEvents = [{
       key: ORDER_CHAT_NEW_MESSAGE,
       handler: message => store.dispatch(orderChatNewMessageReceived(message))
