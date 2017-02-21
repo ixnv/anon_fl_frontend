@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch(categoriesListFetch(payload)),
+  onLoad: () => dispatch(categoriesListFetch()),
   onUnload: () => dispatch(categoriesListUnload()),
   onCategorySelectToggle: (isParent, parentId, id) => dispatch(categorySelectToggle(isParent, parentId, id)),
   onCategoryCollapseToggle: (id) => dispatch(categoryCollapseToggle(id))
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
 
 class CategoriesListContainer extends React.Component {
   componentWillMount() {
-    this.props.onLoad(OrderCategories.fetch());
+    this.props.onLoad();
   }
 
   componentWillUnmount() {
@@ -31,7 +31,10 @@ class CategoriesListContainer extends React.Component {
 
   render() {
     return (
-      <CategoriesList {...this.props}/>
+      <div className="categories-toggler panel">
+        <h4>Категории</h4>
+        <CategoriesList {...this.props}/>
+      </div>
     );
   }
 }

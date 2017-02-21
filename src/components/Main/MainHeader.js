@@ -7,7 +7,7 @@ const MainHeader = props => {
       <div className="text-center main-page-header__text">
         <div className="container">
           <h1>Anon-lance</h1>
-          <p>Description</p>
+          <p>Анонимная онлайн-биржа труда</p>
         </div>
       </div>
     </header>

@@ -3,9 +3,14 @@ import {connect} from "react-redux";
 import MainPage from "../components/Main/MainPage";
 import OrderListContainer from './OrderListContainer';
 import CategoriesListContainer from './CategoriesListContainer';
+import {setCurrentPage} from "../actions/CommonActions";
 
 
 export default class MainContainer extends React.Component {
+  componendDidMount() {
+    this.props.dispatch(setCurrentPage({section: 'main'}));
+  }
+
   render() {
     return (
       <div>

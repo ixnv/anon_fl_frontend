@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     action.onSuccess = () => dispatch(hideModal());
     dispatch(action);
   },
-  updateUsernameField: (email) => dispatch(updateFormField(formName, 'username', email)),
+  updateUsernameField: (username) => dispatch(updateFormField(formName, 'username', username)),
   updatePasswordField: (password) => dispatch(updateFormField(formName, 'password', password)),
   clearForm: (formName) => dispatch(clearForm(formName))
 });

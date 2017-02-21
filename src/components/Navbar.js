@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Nav, Navbar, NavDropdown, NavItem, MenuItem} from 'react-bootstrap';
+import {Nav, Navbar, Dropdown, NavDropdown, NavItem, MenuItem, Glyphicon, Badge} from 'react-bootstrap';
+import NotificationsContainer from '../containers/NotificationsContainer';
 
 
 export const LoggedInView = props => {
@@ -19,12 +20,13 @@ export const LoggedInView = props => {
           </NavItem>
         </LinkContainer>
         <LinkContainer to="/orders/my">
-          <NavItem>
-            Мои заказы
-          </NavItem>
+          <NavItem>Мои заказы</NavItem>
         </LinkContainer>
-        <NavDropdown title={props.username} id="basic-nav-dropdown">
-          <MenuItem>Настройки</MenuItem>
+        <NotificationsContainer/>
+        <NavDropdown title={props.username} id="user-menu-dropdown">
+          <LinkContainer to="/user/settings">
+            <MenuItem>Настройки</MenuItem>
+          </LinkContainer>
           <MenuItem divider />
           <MenuItem onClick={() => props.onLogout()}>Выход</MenuItem>
         </NavDropdown>

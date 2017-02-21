@@ -112,14 +112,14 @@ class OrderListContainer extends React.Component {
     const renderHeader = () => {
       if (this.props.filter.empty) {
         return (
-          <div>
+          <div className="order-list__header panel">
             <h4>Все заказы ({this.props.ordersOnServerCount})</h4>
           </div>
         );
       }
 
       return (
-        <div>
+        <div className="order-list__header panel">
           <h4>
             Поиск по заказам. Найдено результатов: {this.props.ordersOnServerCount}
           </h4>

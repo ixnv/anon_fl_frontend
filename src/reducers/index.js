@@ -11,12 +11,15 @@ import forms from './forms';
 import users from './users';
 import tags from './tags';
 import websocket from './websocket';
+import settings from "./settings";
+import notifications from "./notifications";
 
 export const reducers = combineReducers({
   routing: routerReducer,
   toastr: toastrReducer,
   websocket,
   common,
+  notifications,
   orders,
   chats,
   categories,
@@ -24,5 +27,6 @@ export const reducers = combineReducers({
   forms,
   modals,
   users,
+  settings,
   tags
 });

@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router'
-import {APP_LOADED, LOGIN, ASYNC_END, ASYNC_START, SET_CURRENT_USER} from "./constants/ActionTypes";
+import {APP_LOADED, LOGIN, ASYNC_END, ASYNC_START, SET_CURRENT_USER, REGISTER} from "./constants/ActionTypes";
 import {webSocketConnect} from "./actions/WebsocketActions";
 import {ORDER_CHAT_NEW_MESSAGE, NEW_UNREAD_NOTIFICATIONS, ORDER_APPLICATION_DECLINED, ORDER_APPLICATION_APPROVED,
   ORDER_APPLICATION_REQUEST_RECEIVED
@@ -47,7 +47,7 @@ export const localStorageMiddleware = store => next => action => {
     }
   }
 
-  if (action.type === LOGIN && !action.error) {
+  if ((action.type === LOGIN || action.type === REGISTER) && !action.error) {
     window.localStorage.setItem('currentUser', JSON.stringify({ ...action.payload }));
   } else if (action.type === 'LOGOUT') {
     window.localStorage.removeItem('currentUser');
@@ -57,7 +57,7 @@ export const localStorageMiddleware = store => next => action => {
 };
 
 export const webSocketMiddleware = store => next => action => {
-  if (!action.error && (action.type === SET_CURRENT_USER || action.type === LOGIN)) {
+  if (!action.error && (action.type === SET_CURRENT_USER || action.type === LOGIN || action.type === REGISTER)) {
     const webSocketEvents = [{
       key: ORDER_CHAT_NEW_MESSAGE,
       handler: message => store.dispatch(orderChatNewMessageReceived(message))

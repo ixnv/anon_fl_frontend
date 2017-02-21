@@ -1,8 +1,16 @@
-import {UPDATE_FORM_FIELD, CLEAR_FORM} from './../constants/ActionTypes';
-import {ORDER_TAG_ADD, ORDER_TAG_REMOVE} from "../constants/ActionTypes";
+import {UPDATE_FORM_FIELD, CLEAR_FORM, ORDER_TAG_ADD, ORDER_TAG_REMOVE, ORDER_CHAT_SEND_MESSAGE} from './../constants/ActionTypes';
 
 const initialState = {
   forms: {
+    sign_up: {
+      email: '',
+      username: '',
+      password: ''
+    },
+    sign_in: {
+      username: '',
+      password: ''
+    },
     create_order: {
       title: '',
       description: '',
@@ -65,6 +73,18 @@ export default (state = initialState, action) => {
         ...state,
         forms
       }
+    }
+    case ORDER_CHAT_SEND_MESSAGE: {
+      const forms = Object.assign({}, state.forms, {
+        send_message: {
+          message: ''
+        }
+      });
+
+      return {
+        ...state,
+        forms
+      };
     }
     default:
       return {

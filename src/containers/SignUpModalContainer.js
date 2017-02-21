@@ -8,19 +8,19 @@ import {hideModal} from "../actions/ModalActions";
 const formName = 'sign_up';
 
 const mapStateToProps = state => ({
-  ...state.auth
+  ...state.auth,
+  ...state.forms.forms.sign_up
 });
 
 const mapDispatchToProps = dispatch => ({
   register: (email, username, password) => {
     const action = register(email, username, password);
-    action.onSuccess = dispatch(hideModal());
+    action.onSuccess = () => dispatch(hideModal());
     dispatch(action);
   },
   updateEmailField: (email) => dispatch(updateFormField(formName, 'email', email)),
   updateUsernameField: (email) => dispatch(updateFormField(formName, 'username', email)),
   updatePasswordField: (password) => dispatch(updateFormField(formName, 'password', password)),
-  updateRepeatPasswordField: (password) => dispatch(updateFormField(formName, 'repeat_password', password)),
   clearForm: (formName) => dispatch(clearForm(formName))
 });
 

@@ -89,8 +89,12 @@ class CreateOrderContainer extends React.Component {
   render() {
     return (
       <div className="container">
-        <h3>Создать заказ</h3>
-        <CreateOrderForm {...this.props}/>
+        <div className="row create-order__wrap">
+          <div className="col-sm-12">
+            <h3>Создать заказ</h3>
+            <CreateOrderForm {...this.props}/>
+          </div>
+        </div>
       </div>
     );
   }

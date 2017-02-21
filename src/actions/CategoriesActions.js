@@ -1,9 +1,10 @@
 import {CATEGORIES_FETCH, CATEGORIES_UNLOAD, CATEGORY_SELECT_TOGGLE, CATEGORY_COLLAPSE_TOGGLE, CATEGORIES_PRESELECT, CATEGORIES_SELECTED_RESET} from "../constants/ActionTypes";
+import {OrderCategories} from "../api/resources";
 
-export const categoriesListFetch = (payload) => {
+export const categoriesListFetch = () => {
   return {
     type: CATEGORIES_FETCH,
-    payload
+    payload: OrderCategories.fetch()
   };
 };
 

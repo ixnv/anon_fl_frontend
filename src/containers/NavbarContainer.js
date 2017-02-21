@@ -6,9 +6,11 @@ import {LoggedInView, GuestView} from "../components/Navbar";
 import {SIGN_IN_MODAL, SIGN_UP_MODAL} from '../constants/ModalTypes';
 import {connect} from "react-redux";
 import { browserHistory } from 'react-router'
+import {webSocketEmitEvent} from "../actions/WebsocketActions";
 
 const mapStateToProps = state => ({
-  currentUser: state.users.currentUser
+  currentUser: state.users.currentUser,
+  unreadAmount: state.notifications.unreadAmount
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
   onSignUpModalRequestClick: () => dispatch(showModal(SIGN_UP_MODAL)),
   onLogout: () => {
     dispatch(logout());
+    dispatch(webSocketEmitEvent('leave', {}));
     browserHistory.push('/');
   }
 });
@@ -33,7 +36,7 @@ class NavbarContainer extends React.Component {
         )}
 
         {loggedIn && (
-          <LoggedInView username={this.props.currentUser.username} onLogout={this.props.onLogout}/>
+          <LoggedInView unreadAmount={this.props.unreadAmount} username={this.props.currentUser.username} onLogout={this.props.onLogout}/>
         )}
       </NavBar>
     );

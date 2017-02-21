@@ -1,3 +1,7 @@
+body {
+  background-color: #f4f4f4;
+}
+
 /* main page */
 
 .main-page-header__text {
@@ -11,6 +15,11 @@
 .order-list {
   list-style: none;
   margin-bottom: 0;
+
+  &__header {
+    padding: 15px;
+    margin-bottom: 0;
+  }
 }
 
 .order-list-item {
@@ -94,6 +103,10 @@
 
 
 /* categories list */
+.categories-toggler {
+  padding: 10px 0 0 15px;
+}
+
 .categories-list__toggle, .categories-list__toggle-all {
   display: none;
 }
@@ -220,4 +233,26 @@
       font-size: 0.9em;
     }
   }
+}
+
+.settings__categories {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 20px;
+}
+
+.create-order__wrap {
+  background: #fff;
+}
+
+.notifications-count-badge {
+  background: red;
+  border-radius: 100%;
+  vertical-align: top;
+}
+
+.notifications-list {
+  min-width: 290px;
+  max-height: 310px;
+  overflow-y: auto;
 }

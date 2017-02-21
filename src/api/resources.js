@@ -50,10 +50,20 @@ export const OrderApplication = {
 
 export const OrderChat = {
   fetch: (order_id, page=0) => apiClient.get(`/orders/${order_id}/chat/messages/`),
-  sendMessage: (order_id, message) => apiClient.post(`/orders/${order_id}/chat/messages/`, {message})
+  sendMessage: (order_id, message) => apiClient.post(`/orders/${order_id}/chat/messages/`, {message}),
+  readMessages: (order_id) => apiClient.put(`/orders/${order_id}/chat/messages/`)
 };
 
 export const Tags = {
   search: (term) => apiClient.get(`/tags/search?q=${term}`),
   create: (tag) => apiClient.post('/tags/', {tag})
+};
+
+export const UserNotificationsSettings = {
+  get: () => apiClient.get('/account/settings/notifications/'),
+  update: settings => apiClient.put('/account/settings/notifications/', settings)
+};
+
+export const Notifications = {
+  mark_as_read: () => apiClient.post('/notifications/mark_as_read')
 };

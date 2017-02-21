@@ -10,6 +10,7 @@ import Order from '../components/Order';
 import ApplyPanel from '../components/ApplyPanel';
 import ApplicationsList from '../components/ApplicationsList';
 import OrderChatContainer from '../containers/OrderChatContainer';
+import {setCurrentPage} from "../actions/CommonActions";
 
 
 const mapStateToProps = state => ({
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch(orderGet(payload)),
+  setCurrentPage: ({section, id}) => dispatch(setCurrentPage({section, id})),
   onUnload: () => dispatch(orderUnload()),
 
   // applicant actions
@@ -89,6 +91,8 @@ class OrderPageContainer extends React.Component {
   componentWillMount() {
     const id = this.props.params.id;
     this.props.onLoad(resources.Order.fetch(id));
+
+    this.props.setCurrentPage({section: 'order', id});
   }
 
   componentWillUnmount() {

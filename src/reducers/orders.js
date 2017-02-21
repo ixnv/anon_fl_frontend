@@ -53,13 +53,13 @@ export default (state = initialState, action) => {
     case ORDER_CONTRACTOR_LIST_FETCH:
       return {
         ...state,
-        contractor: action.payload.results,
+        contractor: action.error ? []: action.payload.results,
         ordersOnServerCount: action.payload.count
       };
     case ORDER_CUSTOMER_LIST_FETCH:
       return {
         ...state,
-        customer: action.payload.results,
+        customer: action.error ? []: action.payload.results,
         ordersOnServerCount: action.payload.count
       };
     case ORDER_CONTRACTOR_LIST_UNLOAD:

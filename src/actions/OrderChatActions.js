@@ -27,6 +27,6 @@ export const orderChatNewMessageReceived = message => ({
   message
 });
 
-export const orderChatMarkAsReadIfAny = () => ({
+export const orderChatReadMessages = () => ({
   type: ORDER_CHAT_MARK_AS_READ_IF_ANY
 });

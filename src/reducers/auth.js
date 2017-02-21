@@ -2,7 +2,8 @@ import {LOGIN, REGISTER} from './../constants/ActionTypes';
 import {UPDATE_FORM_FIELD, CLEAR_FORM} from "../constants/ActionTypes";
 
 const initialState = {
-  inProgress: false
+  inProgress: false,
+  errors: {}
 };
 
 export default (state = initialState, action) => {

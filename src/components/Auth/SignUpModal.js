@@ -11,21 +11,6 @@ const SignUpModal = (props) => {
   const updateEmailField = ev =>  props.updateEmailField(ev.target.value);
   const updateUsernameField = ev =>  props.updateUsernameField(ev.target.value);
   const updatePasswordField = ev => props.updatePasswordField(ev.target.value);
-  const updateRepeatPasswordField = ev => props.updateRepeatPasswordField(ev.target.value);
-
-  let repeat_password_blurred = false;
-
-  const repeatPasswordBlurred = (ev) => {
-    if (props.password.length && props.repeat_password.length) {
-      repeat_password_blurred = true;
-    }
-  };
-
-  const repeatPasswordValidationState = () => {
-    if (repeat_password_blurred && props.password !== props.repeat_password) {
-      return 'error';
-    }
-  };
 
   return (
     <Modal show={true} onHide={props.close}>
@@ -62,16 +47,6 @@ const SignUpModal = (props) => {
               onChange={updatePasswordField}
             />
             <HelpBlock>Латинские буквы и цифры, длина не меньше 8 символов</HelpBlock>
-          </FormGroup>
-          <FormGroup validationState={repeatPasswordValidationState()}>
-            <FormControl
-              type="password"
-              value={props.repeat_password}
-              placeholder="Повторите пароль"
-              onChange={updateRepeatPasswordField}
-              onBlur={repeatPasswordBlurred}
-            />
-            <HelpBlock>Должно совпадать со значением, ввведенном в поле пароля</HelpBlock>
           </FormGroup>
           <FormGroup>
             <Button type="submit" bsStyle="primary" disabled={props.inProgress}>Регистрация</Button>

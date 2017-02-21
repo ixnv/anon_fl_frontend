@@ -4,7 +4,7 @@ import shortid from 'shortid';
 
 
 const ErrorsList = props => {
-  if (!props.errors) {
+  if (!props.errors || !Object.keys(props.errors).length) {
     return null;
   }
 
