@@ -75,8 +75,8 @@ export const webSocketMiddleware = store => next => action => {
       handler: application => store.dispatch(orderApplicationRequestReceived(application))
     }];
 
-    const userToken = JSON.parse(window.localStorage.getItem('currentUser')).token;
-    store.dispatch(webSocketConnect(userToken, webSocketEvents));
+    const jwt = JSON.parse(window.localStorage.getItem('currentUser')).jwt;
+    store.dispatch(webSocketConnect(jwt, webSocketEvents));
   }
 
   next(action);
