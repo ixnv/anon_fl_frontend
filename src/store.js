@@ -29,9 +29,7 @@ const middlewareChain = (() => {
   return middleware;
 })();
 
-// create the store
 const store = createStore(reducers, middlewareChain);
 const history = syncHistoryWithStore(browserHistory, store);
 
-// export
 export { store, history };
